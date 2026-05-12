@@ -33,6 +33,9 @@ const BookingSchema = new Schema<IBooking>(
  * This enforces referential integrity at the application layer.
  */
 BookingSchema.pre("save", async function () {
+  if (!(this.isNew || this.isModified("eventId"))) {
+    return;
+  }
   const EventModel = mongoose.models.Event;
   if (!EventModel) {
     throw new Error(
