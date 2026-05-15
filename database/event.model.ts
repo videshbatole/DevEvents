@@ -42,20 +42,48 @@ const EventSchema = new Schema<IEvent>(
   {
     title: { type: String, required: [true, "Title is required"], trim: true },
     slug: { type: String, unique: true, index: true, trim: true },
-    description: { type: String, required: [true, "Description is required"], trim: true },
-    overview: { type: String, required: [true, "Overview is required"], trim: true },
+    description: {
+      type: String,
+      required: [true, "Description is required"],
+      trim: true,
+    },
+    overview: {
+      type: String,
+      required: [true, "Overview is required"],
+      trim: true,
+    },
     image: { type: String, required: [true, "Image is required"], trim: true },
     venue: { type: String, required: [true, "Venue is required"], trim: true },
-    location: { type: String, required: [true, "Location is required"], trim: true },
+    location: {
+      type: String,
+      required: [true, "Location is required"],
+      trim: true,
+    },
     date: { type: String, required: [true, "Date is required"], trim: true },
     time: { type: String, required: [true, "Time is required"], trim: true },
     mode: { type: String, required: [true, "Mode is required"], trim: true },
-    audience: { type: String, required: [true, "Audience is required"], trim: true },
-    agenda: { type: [String], required: [true, "Agenda is required"], default: [] },
-    organizer: { type: String, required: [true, "Organizer is required"], trim: true },
-    tags: { type: [String], required: [true, "Tags are required"], default: [] },
+    audience: {
+      type: String,
+      required: [true, "Audience is required"],
+      trim: true,
+    },
+    agenda: {
+      type: [String],
+      required: [true, "Agenda is required"],
+      default: [],
+    },
+    organizer: {
+      type: String,
+      required: [true, "Organizer is required"],
+      trim: true,
+    },
+    tags: {
+      type: [String],
+      required: [true, "Tags are required"],
+      default: [],
+    },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 /**
@@ -108,8 +136,17 @@ EventSchema.pre("save", async function () {
 
   // Validate required string fields are present and non-empty
   const requiredStrings: RequiredStringField[] = [
-    "title", "description", "overview", "image", "venue",
-    "location", "date", "time", "mode", "audience", "organizer",
+    "title",
+    "description",
+    "overview",
+    "image",
+    "venue",
+    "location",
+    "date",
+    "time",
+    "mode",
+    "audience",
+    "organizer",
   ];
   for (const field of requiredStrings) {
     const value = doc[field];
@@ -144,4 +181,5 @@ EventSchema.pre("save", async function () {
  * "OverwriteModelError" during Next.js hot reloads in development.
  */
 export const Event: Model<IEvent> =
-  (mongoose.models.Event as Model<IEvent>) || mongoose.model<IEvent>("Event", EventSchema);
+  (mongoose.models.Event as Model<IEvent>) ||
+  mongoose.model<IEvent>("Event", EventSchema);

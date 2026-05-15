@@ -37,7 +37,7 @@ const EventCard = ({ title, image, slug, time, location, date }: props) => {
         <Image src={"/icons/pin.svg"} alt="location" width={14} height={14} />
         <p>{location}</p>
       </div>
-      <p className={title}>{title}</p>
+      <p className="title">{title}</p>
 
       <div className="datetime">
         <div>
